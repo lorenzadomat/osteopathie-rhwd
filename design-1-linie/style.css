@@ -1,0 +1,212 @@
+/* ==========================================================================
+   Gesa Adomat · Osteopathie — Design 1 "Linie"
+   Ruhige, editoriale Richtung. Signature: ein durchgehender Faden, der beim
+   Scrollen gezeichnet wird und alle Abschnitte miteinander verbindet.
+   ========================================================================== */
+
+@font-face{font-family:"Fraunces";src:url("../assets/fonts/fraunces.woff2") format("woff2");font-weight:300 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Inter";src:url("../assets/fonts/inter.woff2") format("woff2");font-weight:300 800;font-style:normal;font-display:swap}
+
+:root{
+  --sand:#e1ddda;
+  --sand-hell:#ebe8e6;
+  --papier:#f3f1ef;
+  --stein:#c9c4be;
+  --rot:#c93947;
+  --rot-tief:#942e32;
+  --tinte:#211d1c;
+  --tinte-weich:#544c48;
+
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+
+  --wrap-pad:clamp(20px,6vw,72px);
+  --thread-w:44px;
+  --indent:clamp(46px,8vw,116px);
+  --sec-y:clamp(64px,11vh,132px);
+}
+@media (max-width:640px){:root{--thread-w:26px;--indent:38px}}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:clip}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--sand);color:var(--tinte);overflow-x:clip;
+  font-family:var(--body);font-size:clamp(1rem,.97rem + .18vw,1.0625rem);
+  line-height:1.72;font-weight:400;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img,svg{display:block;max-width:100%}
+svg:has(use){height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:400;font-optical-sizing:auto;margin:0}
+p{margin:0 0 1.15em}
+p:last-child{margin-bottom:0}
+
+/* --- Hilfsklassen ------------------------------------------------------- */
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:var(--wrap-pad);position:relative}
+.eyebrow{
+  font-family:var(--body);font-size:.7rem;font-weight:600;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--rot);margin:0 0 1.1rem;
+}
+.lead{font-size:clamp(1.08rem,1rem + .5vw,1.32rem);line-height:1.62;color:var(--tinte-weich);max-width:52ch}
+.ph{
+  color:var(--rot-tief);background:rgba(201,57,71,.11);
+  border-radius:3px;padding:.05em .3em;font-style:normal;
+}
+
+.skip{position:absolute;left:-9999px;top:0}
+.skip:focus{left:12px;top:12px;z-index:100;background:var(--rot);color:#fff;padding:.7em 1.1em;border-radius:4px}
+:focus-visible{outline:2px solid var(--rot);outline-offset:3px;border-radius:2px}
+
+/* --- Kopfzeile ---------------------------------------------------------- */
+.kopf{
+  position:sticky;top:0;z-index:40;
+  background:color-mix(in srgb,var(--sand) 86%,transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid transparent;transition:border-color .3s ease;
+}
+.kopf[data-scrolled="true"]{border-bottom-color:rgba(33,29,28,.1)}
+.kopf .wrap{display:flex;align-items:center;gap:clamp(16px,4vw,40px);min-height:76px}
+.marke{color:var(--rot);width:clamp(132px,15vw,168px);flex:none}
+.marke svg{width:100%;height:auto;fill:currentColor}
+.nav{margin-left:auto;display:flex;align-items:center;gap:clamp(14px,2.4vw,30px)}
+.nav a{
+  font-size:.875rem;font-weight:500;text-decoration:none;color:var(--tinte-weich);
+  padding:.35em 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;
+}
+.nav a:hover{color:var(--tinte);border-bottom-color:var(--rot)}
+.nav .tel{
+  border:1px solid rgba(33,29,28,.22);border-radius:999px;padding:.55em 1.15em;
+  color:var(--tinte);font-weight:500;
+}
+.nav .tel:hover{background:var(--rot);border-color:var(--rot);color:#fff}
+@media (max-width:820px){.nav a:not(.tel){display:none}}
+
+/* --- Der Faden ---------------------------------------------------------- */
+.faden{
+  position:absolute;left:var(--wrap-pad);top:0;bottom:0;
+  width:var(--thread-w);height:100%;pointer-events:none;overflow:visible;
+}
+.faden path{
+  fill:none;stroke:var(--rot);stroke-width:1.4;stroke-linecap:round;opacity:.5;
+  stroke-dasharray:1;stroke-dashoffset:var(--faden,0);
+}
+.sec{position:relative;padding-block:var(--sec-y);padding-left:var(--indent)}
+.sec::before{
+  content:"";position:absolute;left:calc(var(--thread-w) / 2);top:calc(var(--sec-y) + .55em);
+  width:9px;height:9px;margin-left:-4.5px;border-radius:50%;
+  background:var(--sand);border:1.4px solid var(--rot);
+}
+.sec + .sec{border-top:1px solid rgba(33,29,28,.09)}
+
+/* --- Hero --------------------------------------------------------------- */
+.hero{position:relative;padding-block:clamp(56px,9vw,110px) clamp(64px,10vh,130px);padding-left:var(--indent)}
+.hero-mark{
+  position:absolute;right:calc(50% - 50vw - 90px);top:-6%;
+  width:min(64vw,660px);color:var(--rot);opacity:.13;pointer-events:none;
+}
+.hero-mark svg{width:100%;height:auto;fill:currentColor}
+.hero > :not(.hero-mark){position:relative;z-index:1}
+.hero h1{
+  font-size:clamp(3.1rem,12vw,6.6rem);line-height:.9;letter-spacing:-.024em;
+  font-weight:300;font-variation-settings:"opsz" 120;margin:0 0 .38em;
+}
+.hero h1 em{display:block;font-style:normal;color:var(--rot-tief)}
+.rollen{
+  display:flex;flex-wrap:wrap;gap:.5em 1.4em;list-style:none;padding:0;
+  margin:0 0 1.9rem;font-size:.9rem;letter-spacing:.03em;color:var(--tinte-weich);
+}
+.rollen li{display:flex;align-items:center;gap:1.4em}
+.rollen li:not(:last-child)::after{content:"";width:3px;height:3px;border-radius:50%;background:var(--rot)}
+.aktionen{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.2rem}
+.knopf{
+  display:inline-flex;align-items:center;gap:.55em;text-decoration:none;
+  font-size:.94rem;font-weight:500;padding:.9em 1.6em;border-radius:999px;
+  transition:transform .2s ease,background .2s ease,color .2s ease;
+}
+.knopf-voll{background:var(--rot);color:#fff}
+.knopf-voll:hover{background:var(--rot-tief);transform:translateY(-2px)}
+.knopf-leer{border:1px solid rgba(33,29,28,.25);color:var(--tinte)}
+.knopf-leer:hover{border-color:var(--tinte);transform:translateY(-2px)}
+
+/* --- Abschnitte --------------------------------------------------------- */
+.sec h2{font-size:clamp(1.85rem,1.2rem + 2.4vw,3rem);line-height:1.08;letter-spacing:-.018em;margin:0 0 1.1rem;font-variation-settings:"opsz" 60}
+.sec-text{max-width:60ch}
+
+.prinzipien{list-style:none;margin:2.8rem 0 0;padding:0;display:grid;gap:1px;background:rgba(33,29,28,.1)}
+.prinzipien li{background:var(--sand);padding:1.6rem 0 1.6rem;display:grid;grid-template-columns:34px 1fr;gap:1.4rem;align-items:start}
+.prinzipien li:first-child{padding-top:0}
+.prinzipien .glyph{display:block;width:22px;color:var(--rot);opacity:.7;margin-top:.3rem}
+.prinzipien .glyph svg{width:100%;height:auto;fill:currentColor}
+.prinzipien h3{font-family:var(--body);font-size:1rem;font-weight:600;letter-spacing:-.005em;margin:0 0 .35rem}
+.prinzipien p{color:var(--tinte-weich);font-size:.98rem;margin:0}
+
+/* Preise */
+.preise{margin:2.6rem 0 2rem;display:grid;gap:0}
+.preis{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:baseline;padding:1.15rem 0;border-bottom:1px solid rgba(33,29,28,.12)}
+.preis:first-child{border-top:1px solid rgba(33,29,28,.12)}
+.preis dt{font-weight:500}
+.preis dt small{display:block;font-weight:400;font-size:.85rem;color:var(--tinte-weich);letter-spacing:0}
+.preis dd{margin:0;font-family:var(--display);font-size:clamp(1.5rem,1.1rem + 1.4vw,2.1rem);font-weight:400;color:var(--rot-tief);white-space:nowrap;font-variation-settings:"opsz" 40}
+.verweis{display:inline-flex;align-items:center;gap:.45em;color:var(--rot-tief);text-decoration:none;border-bottom:1px solid rgba(148,46,50,.35);padding-bottom:1px;font-weight:500}
+.verweis:hover{border-bottom-color:var(--rot-tief)}
+.verweis svg{width:.75em;height:.75em;flex:none}
+
+/* FAQ */
+.faq{margin-top:2.4rem;max-width:64ch}
+.faq details{border-top:1px solid rgba(33,29,28,.12)}
+.faq details:last-of-type{border-bottom:1px solid rgba(33,29,28,.12)}
+.faq summary{
+  list-style:none;cursor:pointer;padding:1.35rem 2.6rem 1.35rem 0;position:relative;
+  font-weight:500;font-size:1.03rem;line-height:1.45;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"";position:absolute;right:.35rem;top:1.85rem;width:11px;height:11px;
+  border-right:1.5px solid var(--rot);border-bottom:1.5px solid var(--rot);
+  transform:rotate(45deg);transform-origin:center;transition:transform .25s ease;
+}
+.faq details[open] summary::after{transform:rotate(-135deg)}
+.faq summary:hover{color:var(--rot-tief)}
+.faq .antwort{padding:0 2.6rem 1.6rem 0;color:var(--tinte-weich)}
+
+/* Kontakt */
+.kontakt-raster{display:grid;grid-template-columns:repeat(auto-fit,minmax(186px,1fr));gap:2rem 2.5rem;margin-top:2.6rem}
+.kontakt-raster h3{font-family:var(--body);font-size:.7rem;font-weight:600;letter-spacing:.19em;text-transform:uppercase;color:var(--rot);margin:0 0 .7rem}
+.kontakt-raster p,.kontakt-raster address{overflow-wrap:anywhere}
+.kontakt-raster a{text-decoration:none;border-bottom:1px solid rgba(33,29,28,.2)}
+.kontakt-raster a:hover{border-bottom-color:var(--rot)}
+.hinweis{
+  margin-top:2.8rem;padding:1.5rem 1.7rem;background:#faf9f8;border-left:2px solid var(--rot);
+  border-radius:0 6px 6px 0;color:var(--tinte-weich);font-size:.98rem;max-width:60ch;
+}
+.hinweis strong{color:var(--tinte);font-weight:600}
+
+/* --- Fußzeile ----------------------------------------------------------- */
+.fuss{background:var(--tinte);color:var(--sand);padding-block:clamp(40px,6vw,64px);margin-top:clamp(40px,7vh,90px)}
+.fuss .wrap{display:flex;flex-wrap:wrap;gap:1.4rem 2.5rem;align-items:center}
+.fuss .marke{color:var(--sand);opacity:.9}
+.fuss nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:1.6rem;font-size:.875rem}
+.fuss a{color:rgba(225,221,218,.75);text-decoration:none}
+.fuss a:hover{color:#fff}
+.fuss small{display:block;width:100%;font-size:.8rem;color:rgba(225,221,218,.45);letter-spacing:.01em}
+
+/* --- Einblenden --------------------------------------------------------- */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.reveal.sichtbar{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .knopf:hover{transform:none}
+}
+
+/* --- Impressum ---------------------------------------------------------- */
+.rechtstext{padding-block:clamp(48px,8vh,96px);max-width:70ch}
+.rechtstext h1{font-size:clamp(2.2rem,1.4rem + 3vw,3.4rem);line-height:1.05;letter-spacing:-.02em;margin:0 0 2rem}
+.rechtstext h2{font-size:1.25rem;font-family:var(--body);font-weight:600;letter-spacing:-.005em;margin:2.6rem 0 .8rem}
+.rechtstext h3{font-size:1rem;font-family:var(--body);font-weight:600;margin:1.6rem 0 .5rem}
+.rechtstext p,.rechtstext li{color:var(--tinte-weich)}
+.rechtstext a{color:var(--rot-tief)}
+.rechtstext address{font-style:normal;margin:0 0 1.15em}
+.zurueck{display:inline-flex;align-items:center;gap:.5em;text-decoration:none;font-size:.9rem;color:var(--tinte-weich);margin-bottom:2.2rem}
+.zurueck:hover{color:var(--rot-tief)}
